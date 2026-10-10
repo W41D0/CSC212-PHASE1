@@ -1,7 +1,8 @@
 public class LinkedList<T> implements List<T>
 {
-    private Node<T> head;
-    private Node<T> current;
+    protected int size = 0;
+    protected Node<T> head;
+    protected Node<T> current;
 
     public LinkedList () 
     {
@@ -32,25 +33,47 @@ public class LinkedList<T> implements List<T>
     {
         return current.data;
     }
-    public void update (T val) 
+    public void update (T data) 
     {
-    current.data = val;
+        current.data = data;
     }
 
-    public void insert (T val) 
+    public void insert (T data) 
     {
         Node<T> tmp;
         if (empty()) 
         {
-            current = head = new Node<T> (val);
+            current = head = new Node<T> (data);
         }
         else   
         {
             tmp = current.next; 
-            current.next = new Node<T> (val);
+            current.next = new Node<T> (data);
             current = current.next;
             current.next = tmp;
         }
+
+        size++;
+    }
+
+    public void insertAt(T data, int index)
+    {
+        if (empty())
+        {
+            insert(data);
+            return;
+        }
+
+        findFirst();
+        for (int i = 0; i <= index; i++)
+        {
+            if(!last())
+                findNext();
+            else
+                break;
+        }
+
+        insert(data);
     }
 
     public void remove () 
@@ -71,5 +94,7 @@ public class LinkedList<T> implements List<T>
             current = head;
         else
             current = current.next;
+
+        size--;
     }
 }
