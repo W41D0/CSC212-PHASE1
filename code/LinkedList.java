@@ -97,4 +97,24 @@ public class LinkedList<T> implements List<T>
 
         size--;
     }
+
+    public Node<T> getHead()
+    {
+        return head;
+    }
+
+    public Node<T> getCurrent()
+    {
+        return current;
+    }
+
+    public void setHead(Node<T> head)
+    {
+        this.head = head;
+    }
+
+    public void setCurrent(Node<T> current)
+    {
+        this.current = current;
+    }
 }
