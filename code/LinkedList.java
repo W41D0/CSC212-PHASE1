@@ -16,7 +16,6 @@ public class LinkedList<T> implements List<T>
     {
         return current.next == null;
     }
-
     public boolean full () 
     {
         return false;
