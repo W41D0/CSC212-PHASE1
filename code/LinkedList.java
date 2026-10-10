@@ -3,99 +3,235 @@ public class LinkedList<T> implements List<T>
     protected int size = 0;
     protected Node<T> head;
     protected Node<T> current;
+    protected Node<T> tail;
 
     public LinkedList () 
     {
-        head = current = null;
+        head = current = tail = null;
     }
 
     public boolean empty () 
     {
         return head == null;
     }
+
     public boolean last () 
     {
-        return current.next == null;
+        return current == tail;
     }
+
     public boolean full () 
     {
         return false;
     }
+
     public void findFirst () 
     {
         current = head;
     }
+
     public void findNext () 
     {
-        current = current.next; 
+        if (current != null) current = current.next; 
     }    
+
+    public void findPrevious () 
+    {
+        if (current != null) current = current.prev;
+    }
+    
+    public void findLast () 
+    {
+        current = tail;
+    }
+
     public T retrieve () 
     {
-        return current.data;
+        return current != null ? current.data : null;
     }
+
     public void update (T data) 
     {
-        current.data = data;
+        if (current != null) current.data = data;
     }
 
-    public void insert (T data) 
+    public void insertHead(T data)
     {
-        Node<T> tmp;
-        if (empty()) 
+        Node<T> tmp = new Node<>(data);
+        if (empty())
         {
-            current = head = new Node<T> (data);
+            head = tail = current = tmp;
         }
-        else   
+        else
         {
-            tmp = current.next; 
-            current.next = new Node<T> (data);
-            current = current.next;
-            current.next = tmp;
+            tmp.next = head;
+            head.prev = tmp;
+            head = tmp;
         }
+        size++;
+    }
 
+    public void insertTail(T data)
+    {
+        Node<T> tmp = new Node<>(data);
+        if (empty())
+        {
+            head = tail = current = tmp;
+        }
+        else
+        {
+            tail.next = tmp;
+            tmp.prev = tail;
+            tail = tmp;
+        }
+        size++;
+    }
+
+    public void insert(T data)
+    {
+        if (empty() || current == head)
+        {
+            insertHead(data);
+            return;
+        }
+        Node<T> tmp = new Node<>(data);
+        tmp.next = current;
+        tmp.prev = current.prev;
+        current.prev.next = tmp;
+        current.prev = tmp;
         size++;
     }
 
     public void insertAt(T data, int index)
     {
-        if (empty())
+        if (empty() || index <= 0)
         {
-            insert(data);
+            insertHead(data);
             return;
         }
-
-        findFirst();
-        for (int i = 0; i <= index; i++)
+        
+        if (index >= size)
         {
-            if(!last())
-                findNext();
-            else
-                break;
+            insertTail(data);
+            return;
         }
-
+        
+        findFirst();
+        for (int i = 0; i < index; i++)
+        {
+            findNext();
+        }
+        
         insert(data);
+    }
+
+    public void removeHead()
+    {
+        if (empty()) return;
+        if (head == tail)
+        {
+            head = tail = current = null;
+        }
+        else
+        {
+            if (current == head) current = head.next;
+            head = head.next;
+            head.prev = null;
+        }
+        size--;
+    }
+
+    public void removeTail()
+    {
+        if (empty()) return;
+        if (head == tail)
+        {
+            head = tail = current = null;
+        }
+        else
+        {
+            if (current == tail) current = tail.prev;
+            tail = tail.prev;
+            tail.next = null;
+        }
+        size--;
+    }
+
+    public void removeInfront()
+    {
+        if (empty() || current == head) return;
+        
+        if (current.prev == head)
+        {
+            removeHead();
+            return;
+        }
+        
+        Node<T> toRemove = current.prev;
+        toRemove.prev.next = current;
+        current.prev = toRemove.prev;
+        size--;
+    }
+
+    public void removeBehind()
+    {
+        if (empty() || current == tail) return;
+        
+        if (current.next == tail)
+        {
+            removeTail();
+            return;
+        }
+        
+        Node<T> toRemove = current.next;
+        current.next = toRemove.next;
+        toRemove.next.prev = current;
+        size--;
     }
 
     public void remove () 
     {
-        if (current == head) 
+        if (empty()) return;
+        
+        if (current == head)
         {
-            head = head.next;
+            removeHead();
+            return;
         }
-        else 
+        if (current == tail)
         {
-            Node<T> tmp = head;
-            while (tmp.next != current)
-            tmp = tmp.next;
-            tmp.next = current.next;
+            removeTail();
+            return;
         }
-    
-        if (current.next == null)
-            current = head;
-        else
-            current = current.next;
-
+        
+        current.prev.next = current.next;
+        current.next.prev = current.prev;
+        current = current.next;
         size--;
+    }
+
+    public void removeAt(int index)
+    {
+        if (empty() || index < 0) return;
+        
+        if (index == 0)
+        {
+            removeHead();
+            return;
+        }
+        if (index >= size - 1)
+        {
+            removeTail();
+            return;
+        }
+        
+        findFirst();
+        for (int i = 0; i < index; i++)
+        {
+            findNext();
+        }
+        
+        remove();
     }
 
     public Node<T> getHead()
@@ -108,6 +244,11 @@ public class LinkedList<T> implements List<T>
         return current;
     }
 
+    public Node<T> getTail()
+    {
+        return tail;
+    }
+
     public void setHead(Node<T> head)
     {
         this.head = head;
@@ -116,5 +257,10 @@ public class LinkedList<T> implements List<T>
     public void setCurrent(Node<T> current)
     {
         this.current = current;
+    }
+
+    public void setTail(Node<T> tail)
+    {
+        this.tail = tail;
     }
 }
