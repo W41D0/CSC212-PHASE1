@@ -89,16 +89,24 @@ public class LinkedList<T> implements List<T>
 
     public void insert(T data)
     {
-        if (empty() || current == head)
+        if (empty())
         {
             insertHead(data);
             return;
         }
         Node<T> tmp = new Node<>(data);
-        tmp.next = current;
-        tmp.prev = current.prev;
-        current.prev.next = tmp;
-        current.prev = tmp;
+
+        tmp.next = current.next;
+        tmp.prev = current;
+
+        if (last())
+            tail = tmp;
+        else 
+            current.next.prev = tmp;
+
+        current.next = tmp;
+
+        findNext();
         size++;
     }
 
@@ -117,7 +125,7 @@ public class LinkedList<T> implements List<T>
         }
         
         findFirst();
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i < index - 1; i++)
         {
             findNext();
         }

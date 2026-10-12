@@ -1,8 +1,10 @@
 public class RiderList implements IRiderList
 {
     private LinkedList<IRider> riderList = new LinkedList<>();
+
     public boolean add(IRider rider)
     {
+        //existance check
         if (findById(rider.getId()) != null)
         {
             return false;
@@ -17,10 +19,29 @@ public class RiderList implements IRiderList
 
         riderList.findFirst();
 
+        //head logic
+        if(riderList.retrieve().getId() > rider.getId())
+        {
+            riderList.insertHead(rider);
+            return true;
+        }
+
+        //normal logic
         while (!riderList.last()) 
         {
+            riderList.findNext();
 
+            if (riderList.retrieve().getId() > rider.getId())
+            {
+                riderList.findPrevious();
+                riderList.insert(rider);
+                return true;
+            }
         }
+
+        //if its bigger than everything
+        riderList.insertTail(rider);
+        return true;
 
         //head logic
         // if (riderList.getHead().data.getId() == rider.getId())
@@ -51,6 +72,7 @@ public class RiderList implements IRiderList
         // currNode.next = tmp;
         // riderList.size++;
         // return true;
+        
     }
 
     public IRider findById(int riderId)
