@@ -10,7 +10,7 @@ public class Driver extends Person implements IDriver {
 	 		super(id, name, phoneNumber);
 
   		setVehiclePlate(vehiclePlate);
-	  	setVehicleType(vehicleType);}
+	  	setVehicleType(vehicleType);
 }
 	public String getVehiclePlate()
 	{
@@ -31,9 +31,8 @@ public class Driver extends Person implements IDriver {
 			for(int i=3 ;i<7;i++)
 				{
 					char cDigit=vehiclePlate.charAt(i);
-					if(!(cDigit<=9 && cDigit>=1))
-						  throw new IllegalArgumentException("First 3 characters must be uppercase letters");
-				}
+					if(!(cDigit<='9' && cDigit>='0'))
+  throw new IllegalArgumentException("Last 4 characters must be digits");				}
 
 			        this.vehiclePlate = vehiclePlate;
 				
@@ -54,9 +53,7 @@ public class Driver extends Person implements IDriver {
         this.vehicleType = vehicleType;
     }
 
-    public int compareTo(IDriver other) {
-        return Integer.compare(this.getId(), other.getId());
-    }
+    
 
     public boolean equals(Object obj) {
 
@@ -86,7 +83,9 @@ public class Driver extends Person implements IDriver {
         return 0;
     }
 }
-
+public int hashCode() {
+    return getId();
+}
     
     public String toString() {
         return super.toString()
@@ -94,4 +93,4 @@ public class Driver extends Person implements IDriver {
                 + ", Vehicle Type: " + vehicleType;
     }
 }
-}
+
