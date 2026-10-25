@@ -23,4 +23,10 @@ public class PrivateRide extends Ride implements IPrivateRide
     {
         this.rider = rider;
     }
+
+    //HELPER
+    public boolean hasRider(String name)
+    {
+        return rider.getName().equals(name);
+    }
 }

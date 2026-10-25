@@ -39,4 +39,12 @@ public class SharedRide extends Ride implements ISharedRide
     {
         return participantList.size() <= 0;
     }
+
+    //HELPER
+    public boolean hasRider(String name)
+    {
+        LinkedList<IRider> nameList = participantList.findByName(name);
+        
+        return !nameList.empty();
+    }
 }

@@ -291,6 +291,6 @@ public class RiderList implements IRiderList
 
     public int size()
     {
-        return riderList.size;
+        return riderList.size();
     }
 }

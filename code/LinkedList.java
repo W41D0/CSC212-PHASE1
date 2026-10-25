@@ -310,4 +310,9 @@ public class LinkedList<T> implements List<T>
     {
         this.tail = tail;
     }
+
+    public int size()
+    {
+        return size;
+    }
 }
