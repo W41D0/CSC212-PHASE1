@@ -45,6 +45,29 @@ public class LinkedList<T> implements List<T>
         current = tail;
     }
 
+    public void findAt(int index)
+    {
+        if (empty()) return;
+        
+        if (index <= 0)
+        {
+            current = head;
+            return;
+        }
+        
+        if (index >= size - 1)
+        {
+            current = tail;
+            return;
+        }
+        
+        current = head;
+        for (int i = 0; i < index; i++)
+        {
+            current = current.next;
+        }
+    }
+
     public T retrieve () 
     {
         return current != null ? current.data : null;
@@ -124,13 +147,21 @@ public class LinkedList<T> implements List<T>
             return;
         }
         
-        findFirst();
+        Node<T> tmp = head;
         for (int i = 0; i < index - 1; i++)
         {
-            findNext();
+            tmp = tmp.next;
         }
         
-        insert(data);
+        Node<T> newNode = new Node<>(data);
+        
+        newNode.next = tmp.next;
+        newNode.prev = tmp;
+        
+        tmp.next.prev = newNode;
+        tmp.next = newNode;
+        
+        size++;
     }
 
     public void removeHead()
@@ -220,26 +251,34 @@ public class LinkedList<T> implements List<T>
 
     public void removeAt(int index)
     {
-        if (empty() || index < 0) return;
+        if (empty()) return;
         
-        if (index == 0)
+        if (index <= 0)
         {
             removeHead();
             return;
         }
+        
         if (index >= size - 1)
         {
             removeTail();
             return;
         }
         
-        findFirst();
+        Node<T> tmp = head;
         for (int i = 0; i < index; i++)
         {
-            findNext();
+            tmp = tmp.next;
         }
         
-        remove();
+        if (current == tmp) 
+        {
+            current = tmp.next;
+        }
+
+        tmp.prev.next = tmp.next;
+        tmp.next.prev = tmp.prev;
+        size--;
     }
 
     public Node<T> getHead()

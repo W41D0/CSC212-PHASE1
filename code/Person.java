@@ -1,9 +1,4 @@
-package CCS212;
-
 public abstract class Person implements IPerson {
-	
-
-
 	    private final int id;
 	    private String name;
 	    private String phoneNumber;

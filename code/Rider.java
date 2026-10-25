@@ -1,10 +1,11 @@
-public class Rider /*extends person*/ implements IRider
+//Walid Halabi 446109612
+public class Rider extends Person implements IRider
 {
     String email;
     String homeCity;
     public Rider(int id, String name, String email, String phoneNumber, String homeCity)
     {
-        //super(id, name, phoneNumber);
+        super(id, name, phoneNumber);
         this.email = email;
         this.homeCity = homeCity;
     }

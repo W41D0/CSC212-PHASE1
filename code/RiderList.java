@@ -1,15 +1,10 @@
+//Walid Halabi 446109612
 public class RiderList implements IRiderList
 {
     private LinkedList<IRider> riderList = new LinkedList<>();
 
     public boolean add(IRider rider)
     {
-        //existance check
-        if (findById(rider.getId()) != null)
-        {
-            return false;
-        }
-        
         //empty logic
         if(riderList.empty())
         {
@@ -17,10 +12,16 @@ public class RiderList implements IRiderList
             return true;
         }
 
+        //existance check
+        if (findByEmail(rider.getEmail()) != null)
+            return false;
+        if (findById(rider.getId()) != null)
+            return false;
+
         riderList.findFirst();
 
         //head logic
-        if(riderList.retrieve().getId() > rider.getId())
+        if(rider.compareTo(riderList.retrieve()) < 0)
         {
             riderList.insertHead(rider);
             return true;
@@ -31,7 +32,7 @@ public class RiderList implements IRiderList
         {
             riderList.findNext();
 
-            if (riderList.retrieve().getId() > rider.getId())
+            if (rider.compareTo(riderList.retrieve()) < 0)
             {
                 riderList.findPrevious();
                 riderList.insert(rider);
@@ -42,68 +43,52 @@ public class RiderList implements IRiderList
         //if its bigger than everything
         riderList.insertTail(rider);
         return true;
-
-        //head logic
-        // if (riderList.getHead().data.getId() == rider.getId())
-        //     return false;
-        // if(riderList.getHead().data.getId() > rider.getId())
-        // {
-        //     Node<IRider> tmp = new Node<IRider>(rider);
-        //     tmp.next = riderList.getHead();
-        //     riderList.setHead(tmp);
-        //     riderList.size++;
-        //     return true;
-        // }
-
-        // //logic
-        // Node<IRider> currNode = riderList.getHead();
-        // while (currNode.next != null)
-        // {
-        //     if (currNode.next.data.getId() == rider.getId())
-        //         return false;
-
-        //     if (currNode.next.data.getId() > rider.getId())
-        //         break;
-        //     currNode = currNode.next;
-        // }
-
-        // Node<IRider> tmp = new Node<>(rider);
-        // tmp.next = currNode.next;
-        // currNode.next = tmp;
-        // riderList.size++;
-        // return true;
-        
     }
 
     public IRider findById(int riderId)
     {
-        Node<IRider> currNode = riderList.getHead();
+        //empty logic
+        if (riderList.empty())
+            return null;
+        
+        riderList.findFirst();
 
-        while (currNode != null) 
+        //head logic
+        if (riderList.retrieve().getId() == riderId)
+            return riderList.retrieve();
+
+        //normal logic
+        while (!riderList.last()) 
         {
-            if (currNode.data.getId() > riderId) //list is sorted, so if its bigger, it means we wont find it
-                return null;
-
-            if (currNode.data.getId() == riderId)//if found
-                return currNode.data;
-
-            currNode = currNode.next;
+            riderList.findNext();
+            if (riderList.retrieve().getId() == riderId)
+                return riderList.retrieve();
         }
 
+        //found none
         return null;
     }
 
     public LinkedList<IRider> findByName(String fullName)
     {
         LinkedList<IRider> list = new LinkedList<IRider>();
-        Node<IRider> currNode = riderList.getHead();
 
-        while (currNode != null) 
+        //empty logic
+        if (riderList.empty())
+            return list;
+        
+        riderList.findFirst();
+
+        //head logic
+        if (riderList.retrieve().getName().equals(fullName))
+            list.insert(riderList.retrieve());
+
+        //normal logic
+        while (!riderList.last()) 
         {
-            if (currNode.data.getName().equalsIgnoreCase(fullName))//if found
-                list.insert(currNode.data);
-    
-            currNode = currNode.next;
+            riderList.findNext();
+            if (riderList.retrieve().getName().equals(fullName))
+                list.insert(riderList.retrieve());
         }
 
         return list;
@@ -112,30 +97,48 @@ public class RiderList implements IRiderList
 
     public IRider findByEmail(String email)
     {
-        Node<IRider> currNode = riderList.getHead();
+        //empty logic
+        if (riderList.empty())
+            return null;
+        
+        riderList.findFirst();
 
-        while (currNode != null) 
+        //head logic
+        if (riderList.retrieve().getEmail().equals(email))
+            return riderList.retrieve();
+
+        //normal logic
+        while (!riderList.last()) 
         {
-            if (currNode.data.getEmail().equalsIgnoreCase(email))//if found
-                return currNode.data;
-
-            currNode = currNode.next;
+            riderList.findNext();
+            if (riderList.retrieve().getEmail().equals(email))
+                return riderList.retrieve();
         }
 
+        //found none
         return null;
     }
 
     public LinkedList<IRider> findByHomeCity(String homeCity)
     {
         LinkedList<IRider> list = new LinkedList<IRider>();
-        Node<IRider> currNode = riderList.getHead();
 
-        while (currNode != null) 
+        //empty logic
+        if (riderList.empty())
+            return list;
+        
+        riderList.findFirst();
+
+        //head logic
+        if (riderList.retrieve().getHomeCity().equals(homeCity))
+            list.insert(riderList.retrieve());
+
+        //normal logic
+        while (!riderList.last()) 
         {
-            if (currNode.data.getHomeCity().equalsIgnoreCase(homeCity))//if found
-                list.insert(currNode.data);
-    
-            currNode = currNode.next;
+            riderList.findNext();
+            if (riderList.retrieve().getHomeCity().equals(homeCity))
+                list.insert(riderList.retrieve());
         }
 
         return list;
@@ -144,41 +147,147 @@ public class RiderList implements IRiderList
     public LinkedList<IRider> getAll()
     {
         LinkedList<IRider> list = new LinkedList<IRider>();
-        Node<IRider> currNode = riderList.getHead();
+        
+        //empty logic
+        if (riderList.empty())
+            return list;
 
-        while (currNode != null) 
+        riderList.findFirst();
+
+        //head logic
+            list.insert(riderList.retrieve());
+
+        //normal logic
+        while (!riderList.last())
         {
-            list.insert(currNode.data);
-            currNode = currNode.next;
+            riderList.findNext();
+            list.insert(riderList.retrieve());
         }
+
         return list;
     }
 
-    boolean removeById(int riderId)
+    public boolean removeById(int riderId)
     {
-        Node<IRider> currNode = riderList.getHead();
+        //empty logic
+        if (riderList.empty())
+            return false;
+        
+        riderList.findFirst();
 
-        while (currNode != null) 
+        //head logic
+        if (riderList.retrieve().getId() == riderId)
         {
-            if (currNode.data.getId() == riderId)//if found
-            {
-                
-                return currNode.data;
+            riderList.removeHead();
+            return true;
+        } 
+
+        //normal logic
+        while (!riderList.last()) 
+        {
+            riderList.findNext();
+            if (riderList.retrieve().getId() == riderId)
+            {   
+                riderList.remove();
+                return true;
             }
-
-            if (currNode.data.getId() > riderId) //list is sorted, so if its bigger, it means we wont find it
-                return false;
-
-
-            currNode = currNode.next;
         }
 
-        return null;
+        //found none
+        return false;
     }
     
-    // boolean removeByEmail(String email);
-    // int removeByName(String fullName);
-    // int removeByHomeCity(String homeCity);
+    public boolean removeByEmail(String email)
+    {
+        //empty logic
+        if (riderList.empty())
+            return false;
+        
+        riderList.findFirst();
+
+        //head logic
+        if (riderList.retrieve().getEmail().equals(email))
+        {
+            riderList.removeHead();
+            return true;
+        } 
+
+        //normal logic
+        while (!riderList.last()) 
+        {
+            riderList.findNext();
+            if (riderList.retrieve().getEmail().equals(email))
+            {   
+                riderList.remove();
+                return true;
+            }
+        }
+
+        //found none
+        return false;
+    }
+
+    public int removeByName(String fullName)
+    {
+        //empty logic
+        if (riderList.empty())
+            return 0;
+        
+        int count = 0;
+        riderList.findFirst();
+
+        //normal logic
+        while (!riderList.last()) 
+        {
+            if (riderList.retrieve().getName().equals(fullName))
+            {   
+                riderList.remove();
+                count++;
+            }
+            else
+                riderList.findNext();
+        }
+
+        //tail logic
+        if (riderList.retrieve().getName().equals(fullName))
+        {
+            riderList.removeTail();
+            count++;
+        } 
+
+        return count;
+    }
+    
+    public int removeByHomeCity(String homeCity)
+    {
+        //empty logic
+        if (riderList.empty())
+            return 0;
+        
+        int count = 0;
+        riderList.findFirst();
+
+        //normal logic
+        while (!riderList.last()) 
+        {
+            if (riderList.retrieve().getHomeCity().equals(homeCity))
+            {   
+                riderList.remove();
+                count++;
+            }
+            else
+                riderList.findNext();
+        }
+
+        //tail logic
+        if (riderList.retrieve().getHomeCity().equals(homeCity))
+        {
+            riderList.removeTail();
+            count++;
+        } 
+
+        return count;
+    }
 
     public int size()
     {
