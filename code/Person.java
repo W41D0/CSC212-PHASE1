@@ -1,3 +1,5 @@
+// Nawaf turki alqusair
+// student id: 446107045
 public abstract class Person implements IPerson {
 	    private final int id;
 	    private String name;
