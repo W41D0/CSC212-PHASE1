@@ -37,12 +37,12 @@ public class Driver extends Person implements IDriver {
 			        this.vehiclePlate = vehiclePlate;
 				
 	}
- @Override
+ 
     public VehicleType getVehicleType() {
         return vehicleType;
     }
 
-    @Override
+    
     public void setVehicleType(VehicleType vehicleType) {
 
         if (vehicleType == null) {
