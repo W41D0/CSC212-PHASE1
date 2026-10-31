@@ -5,12 +5,12 @@ public class Node<T>
     public Node<T> next;
     public Node<T> prev;
 
-    public Node()
+    public Node()//O(1)
     {
         this(null);
     }
 
-    public Node(T data)
+    public Node(T data)//O(1)
     {
         this.data = data;
         next = null;

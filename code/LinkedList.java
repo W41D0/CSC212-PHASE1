@@ -5,47 +5,47 @@ public class LinkedList<T> implements List<T>
     protected Node<T> current;
     protected Node<T> tail;
 
-    public LinkedList () 
+    public LinkedList ()//O(1)
     {
         head = current = tail = null;
     }
 
-    public boolean empty () 
+    public boolean empty ()//O(1)
     {
         return head == null;
     }
 
-    public boolean last () 
+    public boolean last () //O(1)
     {
         return current == tail;
     }
 
-    public boolean full () 
+    public boolean full () //O(1)
     {
         return false;
     }
 
-    public void findFirst () 
+    public void findFirst () //O(1)
     {
         current = head;
     }
 
-    public void findNext () 
+    public void findNext () //O(1)
     {
         if (current != null) current = current.next; 
     }    
 
-    public void findPrevious () 
+    public void findPrevious () //O(1)
     {
         if (current != null) current = current.prev;
     }
     
-    public void findLast () 
+    public void findLast () //O(1)
     {
         current = tail;
     }
 
-    public void findAt(int index)
+    public void findAt(int index)//O(n)
     {
         if (empty()) return;
         
@@ -68,17 +68,17 @@ public class LinkedList<T> implements List<T>
         }
     }
 
-    public T retrieve () 
+    public T retrieve () //O(1)
     {
         return current != null ? current.data : null;
     }
 
-    public void update (T data) 
+    public void update (T data) //O(1)
     {
         if (current != null) current.data = data;
     }
 
-    public void insertHead(T data)
+    public void insertHead(T data)//O(1)
     {
         Node<T> tmp = new Node<>(data);
         if (empty())
@@ -94,7 +94,7 @@ public class LinkedList<T> implements List<T>
         size++;
     }
 
-    public void insertTail(T data)
+    public void insertTail(T data)//O(1)
     {
         Node<T> tmp = new Node<>(data);
         if (empty())
@@ -110,7 +110,7 @@ public class LinkedList<T> implements List<T>
         size++;
     }
 
-    public void insert(T data)
+    public void insert(T data)//O(1)
     {
         if (empty())
         {
@@ -133,7 +133,7 @@ public class LinkedList<T> implements List<T>
         size++;
     }
 
-    public void insertAt(T data, int index)
+    public void insertAt(T data, int index)//O(n)
     {
         if (empty() || index <= 0)
         {
@@ -164,7 +164,7 @@ public class LinkedList<T> implements List<T>
         size++;
     }
 
-    public void removeHead()
+    public void removeHead()//O(1)
     {
         if (empty()) return;
         if (head == tail)
@@ -180,7 +180,7 @@ public class LinkedList<T> implements List<T>
         size--;
     }
 
-    public void removeTail()
+    public void removeTail()//O(1)
     {
         if (empty()) return;
         if (head == tail)
@@ -196,7 +196,7 @@ public class LinkedList<T> implements List<T>
         size--;
     }
 
-    public void removeInfront()
+    public void removeInfront()//O(1)
     {
         if (empty() || current == head) return;
         
@@ -212,7 +212,7 @@ public class LinkedList<T> implements List<T>
         size--;
     }
 
-    public void removeBehind()
+    public void removeBehind()//O(1)
     {
         if (empty() || current == tail) return;
         
@@ -228,7 +228,7 @@ public class LinkedList<T> implements List<T>
         size--;
     }
 
-    public void remove () 
+    public void remove() //O(1)
     {
         if (empty()) return;
         
@@ -249,7 +249,7 @@ public class LinkedList<T> implements List<T>
         size--;
     }
 
-    public void removeAt(int index)
+    public void removeAt(int index)//O(n)
     {
         if (empty()) return;
         
@@ -281,7 +281,7 @@ public class LinkedList<T> implements List<T>
         size--;
     }
 
-    public int size()
+    public int size()//O(1)
     {
         return size;
     }

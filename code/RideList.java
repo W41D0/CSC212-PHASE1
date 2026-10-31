@@ -3,7 +3,7 @@ public class RideList implements IRideList
 {
     LinkedList<IRide> rideList = new LinkedList<IRide>();
 
-    public boolean addRide(IRide ride)
+    public boolean addRide(IRide ride)//O(n)
     {
         //empty logic
         if(rideList.empty())
@@ -43,7 +43,7 @@ public class RideList implements IRideList
         return true;
     }
 
-    public boolean removeRideById(int rideId)
+    public boolean removeRideById(int rideId)//O(n)
     {
         //empty logic
         if (rideList.empty())
@@ -73,7 +73,7 @@ public class RideList implements IRideList
         return false;
     }
 
-    public LinkedList<IRide> getAllAlphabetically()
+    public LinkedList<IRide> getAllAlphabetically()//O(n)
     {
         //its already alphabetical
         LinkedList<IRide> list = new LinkedList<IRide>();
@@ -97,7 +97,7 @@ public class RideList implements IRideList
         return list;
     }
 
-    public LinkedList<IRide> findByPickupLocation(String pickupLocation)
+    public LinkedList<IRide> findByPickupLocation(String pickupLocation)//O(n)
     {
         LinkedList<IRide> list = new LinkedList<IRide>();
 
@@ -122,7 +122,7 @@ public class RideList implements IRideList
         return list;
     }
 
-    public LinkedList<IRide> findByRiderName(String riderFullName)
+    public LinkedList<IRide> findByRiderName(String riderFullName)//O(n * p)
     {
         LinkedList<IRide> list = new LinkedList<IRide>();
 
@@ -164,13 +164,13 @@ public class RideList implements IRideList
         return list;
     }
 
-    public int size()
+    public int size()//O(1)
     {
         return rideList.size();
     }
 
     //HELPER METHOD
-    private IRide findRideById(int rideId)
+    private IRide findRideById(int rideId)//O(n)
     {
         //empty logic
         if (rideList.empty())

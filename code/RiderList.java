@@ -3,7 +3,7 @@ public class RiderList implements IRiderList
 {
     private LinkedList<IRider> riderList = new LinkedList<>();
 
-    public boolean add(IRider rider)
+    public boolean add(IRider rider)//O(n)
     {
         //empty logic
         if(riderList.empty())
@@ -45,7 +45,7 @@ public class RiderList implements IRiderList
         return true;
     }
 
-    public IRider findById(int riderId)
+    public IRider findById(int riderId)//O(n)
     {
         //empty logic
         if (riderList.empty())
@@ -69,7 +69,7 @@ public class RiderList implements IRiderList
         return null;
     }
 
-    public LinkedList<IRider> findByName(String fullName)
+    public LinkedList<IRider> findByName(String fullName)//O(n)
     {
         LinkedList<IRider> list = new LinkedList<IRider>();
 
@@ -95,7 +95,7 @@ public class RiderList implements IRiderList
     }
 
 
-    public IRider findByEmail(String email)
+    public IRider findByEmail(String email)//O(n)
     {
         //empty logic
         if (riderList.empty())
@@ -119,7 +119,7 @@ public class RiderList implements IRiderList
         return null;
     }
 
-    public LinkedList<IRider> findByHomeCity(String homeCity)
+    public LinkedList<IRider> findByHomeCity(String homeCity)//O(n)
     {
         LinkedList<IRider> list = new LinkedList<IRider>();
 
@@ -144,7 +144,7 @@ public class RiderList implements IRiderList
         return list;
     }
 
-    public LinkedList<IRider> getAll()
+    public LinkedList<IRider> getAll()//O(n)
     {
         LinkedList<IRider> list = new LinkedList<IRider>();
         
@@ -167,7 +167,7 @@ public class RiderList implements IRiderList
         return list;
     }
 
-    public boolean removeById(int riderId)
+    public boolean removeById(int riderId)//O(n)
     {
         //empty logic
         if (riderList.empty())
@@ -197,7 +197,7 @@ public class RiderList implements IRiderList
         return false;
     }
     
-    public boolean removeByEmail(String email)
+    public boolean removeByEmail(String email)//O(n)
     {
         //empty logic
         if (riderList.empty())
@@ -227,7 +227,7 @@ public class RiderList implements IRiderList
         return false;
     }
 
-    public int removeByName(String fullName)
+    public int removeByName(String fullName)//O(n)
     {
         //empty logic
         if (riderList.empty())
@@ -258,7 +258,7 @@ public class RiderList implements IRiderList
         return count;
     }
     
-    public int removeByHomeCity(String homeCity)
+    public int removeByHomeCity(String homeCity)//O(n)
     {
         //empty logic
         if (riderList.empty())
@@ -289,7 +289,7 @@ public class RiderList implements IRiderList
         return count;
     }
 
-    public int size()
+    public int size()//O(1)
     {
         return riderList.size();
     }
