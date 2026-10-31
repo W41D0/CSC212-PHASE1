@@ -9,6 +9,7 @@ public class DateTime implements IDateTime {
     private final int hour;
     private final int minute;
 
+    //o(1) time compixity
     public DateTime(int year, int month, int day, int hour, int minute) {
     	if(year <1)
             throw new IllegalArgumentException("invalid year");
@@ -29,40 +30,50 @@ public class DateTime implements IDateTime {
 
     
 
+    //o(1) time compixity
     public int getYear() {
         return year;
     }
 
-    public int getMonth() {
+      //o(1) time compixity
+  public int getMonth() {
         return month;
     }
 
-    public int getDay() {
+     //o(1) time compixity
+   public int getDay() {
         return day;
     }
 
-    public int getHour() {
+      //o(1) time compixity
+  public int getHour() {
         return hour;
     }
 
-    public int getMinute() {
+       //o(1) time compixity
+ public int getMinute() {
         return minute;
     }
 
-    public String format() {
+      //o(1) time compixity
+  public String format() {
         String s= FormatDigits(month)+"/"+FormatDigits(day)+"/"+yearFormat(year)+
         		" "+FormatDigits(hour)+":"+FormatDigits(minute);
         return s;
     }
 
-    private String FormatDigits(int n) {
-        if(n<10)
+     //o(1) time compixity
+    
+   private String FormatDigits(int n) {
+        if(n<10) // if day =3 for instance it will be 03 to make the alignment works
         	return "0"+n;
         else
-        	return ""+n;
+        	return ""+n; 
     }
+    //o(1) complixty 
+    //year logic differs than month/day and time a year can have mroe than 2 digits 
     private String yearFormat(int year) {
-    	if(year < 10 )
+    	if(year < 10 ) 
     		return "000"+year;
     	else
     		if(year<100)
@@ -103,7 +114,7 @@ public class DateTime implements IDateTime {
 
     return new DateTime(year, month, day, hour, minute);
     }
-
+    
     public String toString() {
         return format();
     }
