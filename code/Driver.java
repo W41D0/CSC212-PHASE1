@@ -4,18 +4,20 @@ public class Driver extends Person implements IDriver {
 	
 	private String vehiclePlate;
     private VehicleType vehicleType;
-
+	//o(1) time complixty
 	 public Driver(int id, String name, String phoneNumber,
 				   String vehiclePlate, VehicleType vehicleType) {
 	 		super(id, name, phoneNumber);
 
   		setVehiclePlate(vehiclePlate);
 	  	setVehicleType(vehicleType);
-}
+}		
+
+	//o(1) time complixty
 	public String getVehiclePlate()
 	{
         return vehiclePlate;
-    }
+    }	//o(1) time complixty
 	  public void setVehiclePlate(String vehiclePlate){
 
 		   // Check the length
@@ -38,12 +40,14 @@ public class Driver extends Person implements IDriver {
 				
 	}
  
-    public VehicleType getVehicleType() {
+  	//o(1) time complixty
+  public VehicleType getVehicleType() {
         return vehicleType;
     }
 
     
-    public void setVehicleType(VehicleType vehicleType) {
+ 	//o(1) time complixty
+   public void setVehicleType(VehicleType vehicleType) {
 
         if (vehicleType == null) {
             throw new IllegalArgumentException(
@@ -54,7 +58,7 @@ public class Driver extends Person implements IDriver {
     }
 
     
-
+	//o(1) time complixty
     public boolean equals(Object obj) {
 
         if (this == obj) {
@@ -71,6 +75,7 @@ public class Driver extends Person implements IDriver {
     }
 
    
+	//o(1) time complixty
     public int compareTo(IDriver other) {
 
     if (this.getId() > other.getId()) {
@@ -82,12 +87,13 @@ public class Driver extends Person implements IDriver {
     else {
         return 0;
     }
-}
+}	//o(1) time complixty
 public int hashCode() {
     return getId();
 }
     
-    public String toString() {
+  	//o(1) time complixty
+  public String toString() {
         return super.toString()
                 + ", Vehicle Plate: " + vehiclePlate
                 + ", Vehicle Type: " + vehicleType;
