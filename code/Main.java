@@ -2,7 +2,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args){//O(n^2)
         Scanner input = new Scanner(System.in);
         RideSharingSystem system = new RideSharingSystem();
 
@@ -231,7 +231,7 @@ public class Main {
     }
 
     // Print the menu
-    public static void printMenu() {
+    public static void printMenu() {//O(1)
 
         System.out.println("\n===== Ride Sharing System =====");
 
@@ -251,7 +251,7 @@ public class Main {
     }
 
     // Print the elements in a list
-    public static <T> void printList(LinkedList<T> list) {
+    public static <T> void printList(LinkedList<T> list) {//O(n)
 
         if (list == null || list.empty()) {
             System.out.println("No results found.");
@@ -270,7 +270,7 @@ public class Main {
     }
 
     // Convert user input to DateTime
-    public static IDateTime readDateTime(String text) {
+    public static IDateTime readDateTime(String text) {//O(1)
 
         String[] parts = text.split(" ", -1);
 
