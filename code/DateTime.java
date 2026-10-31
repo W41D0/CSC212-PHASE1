@@ -8,7 +8,7 @@ public class DateTime implements IDateTime {
     private final int day;
     private final int hour;
     private final int minute;
-
+    // o(1) time complixity
     public DateTime(int year, int month, int day, int hour, int minute) {
     	if(year <1)
             throw new IllegalArgumentException("invalid year");
@@ -28,40 +28,45 @@ public class DateTime implements IDateTime {
     }
 
     
-
+    // o(1) time complixity
     public int getYear() {
         return year;
     }
-
+    // o(1) time complixity
     public int getMonth() {
         return month;
     }
 
-    public int getDay() {
+        // o(1) time complixity
+public int getDay() {
         return day;
     }
 
-    public int getHour() {
+       // o(1) time complixity
+ public int getHour() {
         return hour;
     }
-
+    // o(1) time complixity
     public int getMinute() {
         return minute;
     }
 
-    public String format() {
+        // o(1) time complixity
+public String format() {
         String s= FormatDigits(month)+"/"+FormatDigits(day)+"/"+yearFormat(year)+
         		" "+FormatDigits(hour)+":"+FormatDigits(minute);
         return s;
     }
 
-    private String FormatDigits(int n) {
+       // o(1) time complixity
+ private String FormatDigits(int n) {
         if(n<10)
         	return "0"+n;
         else
         	return ""+n;
     }
-    private String yearFormat(int year) {
+       // o(1) time complixity
+ private String yearFormat(int year) {
     	if(year < 10 )
     		return "000"+year;
     	else
@@ -75,7 +80,8 @@ public class DateTime implements IDateTime {
     	
     }
 
-    public int compareTo(IDateTime other) {
+       // o(1) time complixity
+ public int compareTo(IDateTime other) {
     	if(year!=other.getYear())
     		return year-other.getYear();
     	if(month!=other.getMonth())
@@ -89,7 +95,8 @@ public class DateTime implements IDateTime {
     	return minute-other.getMinute();
     }
 
-    public String toString() {
+        // o(1) time complixity
+public String toString() {
         return format();
     }
 }
