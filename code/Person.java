@@ -5,7 +5,7 @@ public abstract class Person implements IPerson {
 	    private String name;
 	    private String phoneNumber;
 	    private LinkedList<IRide> rideHistory;
-
+//o(1) time complixty
 	    public Person(int id, String name, String phoneNumber) {
 	        this.id = id;
 	        this.name = name;
@@ -13,22 +13,27 @@ public abstract class Person implements IPerson {
 	        this.rideHistory = new LinkedList<>();
 	    }
 
-	    public int getId() {
+	  //o(1) time complixty
+  public int getId() {
 	        return id;
 	    }
 
-	    public String getName() {
+	//o(1) time complixty
+    public String getName() {
 	        return name;
 	    }
 
-	    public void setName(String name) {
+	  //o(1) time complixty
+  public void setName(String name) {
 	        this.name = name;
 	    }
 
-	    public String getPhoneNumber() {
+	//o(1) time complixty
+    public String getPhoneNumber() {
 	        return phoneNumber;
 	    }
-	    	public void setPhoneNumber(String phoneNumber) {
+	//o(1) time complixty
+	public void setPhoneNumber(String phoneNumber) {
 	    		if(phoneNumber==null || phoneNumber.length()!=10) {
 	    			throw new IllegalArgumentException("Phone number must be exactly 10 digits!");
 	    		}// restricting the user to enter a phone number exactly contains 10 digits
@@ -45,9 +50,11 @@ public abstract class Person implements IPerson {
 	    		this .phoneNumber=phoneNumber;
 	    		
 	    	}
+			//o(1) time complixty	
 	    	 public LinkedList<IRide> getRideHistory() {
 	    	        return rideHistory;
 	    	    }
+				//o(1) time complixty
 	    	 public String toString() {
 	    	        return "ID: " + id +
 	    	               ", Name: " + name +
