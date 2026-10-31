@@ -114,8 +114,21 @@ public class DateTime implements IDateTime {
 
     return new DateTime(year, month, day, hour, minute);
     }
+    public int compareTo(IDateTime other) {
+        if (year != other.getYear())
+            return year - other.getYear();
+        if (month != other.getMonth())
+            return month - other.getMonth();
+        if (day != other.getDay())
+            return day - other.getDay();
+        if (hour != other.getHour())
+            return hour - other.getHour();
+        return minute - other.getMinute();
+    }
     
     public String toString() {
         return format();
     }
+
+    
 }
