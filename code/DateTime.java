@@ -8,7 +8,7 @@ public class DateTime implements IDateTime {
     private final int day;
     private final int hour;
     private final int minute;
-    // o(1) time complixity
+
     public DateTime(int year, int month, int day, int hour, int minute) {
     	if(year <1)
             throw new IllegalArgumentException("invalid year");
@@ -28,45 +28,40 @@ public class DateTime implements IDateTime {
     }
 
     
-    // o(1) time complixity
+
     public int getYear() {
         return year;
     }
-    // o(1) time complixity
+
     public int getMonth() {
         return month;
     }
 
-        // o(1) time complixity
-public int getDay() {
+    public int getDay() {
         return day;
     }
 
-       // o(1) time complixity
- public int getHour() {
+    public int getHour() {
         return hour;
     }
-    // o(1) time complixity
+
     public int getMinute() {
         return minute;
     }
 
-        // o(1) time complixity
-public String format() {
+    public String format() {
         String s= FormatDigits(month)+"/"+FormatDigits(day)+"/"+yearFormat(year)+
         		" "+FormatDigits(hour)+":"+FormatDigits(minute);
         return s;
     }
 
-       // o(1) time complixity
- private String FormatDigits(int n) {
+    private String FormatDigits(int n) {
         if(n<10)
         	return "0"+n;
         else
         	return ""+n;
     }
-       // o(1) time complixity
- private String yearFormat(int year) {
+    private String yearFormat(int year) {
     	if(year < 10 )
     		return "000"+year;
     	else
@@ -79,22 +74,37 @@ public String format() {
     				return ""+year;
     	
     }
+    
+    //o(1) time compilixty
+    public static DateTime parse(String text) {
 
-       // o(1) time complixity
- public int compareTo(IDateTime other) {
-    	if(year!=other.getYear())
-    		return year-other.getYear();
-    	if(month!=other.getMonth())
-    		return month-other.getMonth();
-    	if(day!=other.getDay())
-        		return day-other.getDay();
-    	if(hour!=other.getHour())
-    		return hour - other.getHour();
-    	return minute-other.getMinute();
+    if (text == null)
+        throw new IllegalArgumentException("Invalid date");
+
+    String[] s = text.trim().split(" ");// here trim it remove the extra spaces 
+    // split i going to split into to elemnts e0=date and e1=time
+    
+    if (s.length != 2)
+        throw new IllegalArgumentException("Invalid date");
+
+    
+    String[] date = s[0].split("/");
+    String[] time = s[1].split(":");
+
+    if (date.length != 3 || time.length != 2)
+        throw new IllegalArgumentException("Invalid date");
+
+    int month = Integer.parseInt(date[0]);
+    int day = Integer.parseInt(date[1]);
+    int year = Integer.parseInt(date[2]);
+
+    int hour = Integer.parseInt(time[0]);
+    int minute = Integer.parseInt(time[1]);
+
+    return new DateTime(year, month, day, hour, minute);
     }
 
-        // o(1) time complixity
-public String toString() {
+    public String toString() {
         return format();
     }
 }
