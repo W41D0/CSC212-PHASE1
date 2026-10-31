@@ -88,8 +88,6 @@ public String format() {
     		return month-other.getMonth();
     	if(day!=other.getDay())
         		return day-other.getDay();
-    	if(day!=other.getDay())
-    		return day-other.getDay();
     	if(hour!=other.getHour())
     		return hour - other.getHour();
     	return minute-other.getMinute();
