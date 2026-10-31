@@ -2,7 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-public class RideSharingSystem implements IRideSharingSystem {
+public class RideSharingSystem implements IRideSharingSystem { // O(1)
     private DriverList drivers;
     private RiderList riders;
     private RideList rides;
@@ -14,22 +14,22 @@ public class RideSharingSystem implements IRideSharingSystem {
     }
 
      // looks for driver by id
-    public IDriver searchDriverById(int driverId){
+    public IDriver searchDriverById(int driverId){ // O ( 1 ) 
        return drivers.findById(driverId);
     }
 
      //Searches for a driver by vehicle plate.
-    public IDriver searchDriverByVehiclePlate(String vehiclePlate){
+    public IDriver searchDriverByVehiclePlate(String vehiclePlate){ // O ( 1 )
        return drivers.findByVehiclePlate(vehiclePlate);
     }
      
     //Returns all drivers stored in the system.
-    public LinkedList<IDriver> getAllDrivers(){
+    public LinkedList<IDriver> getAllDrivers(){ // O ( 1 )
         return drivers.getAll();
     }
 
     //Searches for all drivers with the specified vehicle type.
-    public LinkedList<IDriver> searchDriversByVehicleType(VehicleType vehicleType){
+    public LinkedList<IDriver> searchDriversByVehicleType(VehicleType vehicleType){ // O ( 1 )
         return drivers.findByVehicleType(vehicleType);
     }
 
@@ -38,58 +38,58 @@ public class RideSharingSystem implements IRideSharingSystem {
      * vehicle plate number (no two drivers may share the same plate).
      * Returns true if added; false if duplicate ID, duplicate plate, or invalid
      */
-     public boolean addDriver(IDriver driver){
+     public boolean addDriver(IDriver driver){ // O ( 1 )
         return drivers.add(driver);
      }
 
      //Searches for a rider by ID.
-    public IRider searchRiderById(int riderId){
+    public IRider searchRiderById(int riderId){ // O ( 1 ) 
         return riders.findById(riderId);
     }
 
      //Searches for a rider by email.
-    public IRider searchRiderByEmail(String email){
+    public IRider searchRiderByEmail(String email){ // O ( 1 )
         return riders.findByEmail(email);
     }
     //Searches for all riders whose full name exactly matches the given name.
-    public LinkedList<IRider> searchRidersByName(String fullName){
+    public LinkedList<IRider> searchRidersByName(String fullName){ // O ( 1 )
         return riders.findByName(fullName);
     }
 
     //Searches for all riders from the specified home city.
-    public LinkedList<IRider> searchRidersByHomeCity(String homeCity){
+    public LinkedList<IRider> searchRidersByHomeCity(String homeCity){ // O ( 1 )
         return riders.findByHomeCity(homeCity);
     }
 
      //Returns all riders stored in the system.
-    public LinkedList<IRider> getAllRiders(){
+    public LinkedList<IRider> getAllRiders(){ // O ( 1 )
         return riders.getAll();
     }
 
     //Adds a rider to the system after enforcing uniqueness by ID. Returns true if added; false if duplicate ID or invalid
-    public boolean addRider(IRider rider){
+    public boolean addRider(IRider rider){ // O ( 1 )
         if (rider == null)
             return false;
         else return riders.add(rider);
     }
 
     //Searches for all rides whose pickup location matches the given location (may return multiple if pickup locations repeat).
-    public LinkedList<IRide> searchRidesByPickupLocation(String pickupLocation){
+    public LinkedList<IRide> searchRidesByPickupLocation(String pickupLocation){ // O ( 1 )
         return rides.findByPickupLocation(pickupLocation);
     }
 
     //Searches for all rides that involve a rider with the given name.
-    public LinkedList<IRide> searchRidesByRiderName(String riderName){
+    public LinkedList<IRide> searchRidesByRiderName(String riderName){ // O ( 1 )
         return rides.findByRiderName(riderName);
     }
 
     //Returns all rides (private and shared) alphabetically ordered by pickup location.
-    public LinkedList<IRide> getAllRidesAlphabetically(){
+    public LinkedList<IRide> getAllRidesAlphabetically(){ // O ( 1 )
         return rides.getAllAlphabetically();
     }
 
     //Returns all riders registered on a shared ride identified by its pickup location.
-    public LinkedList<IRider> getSharedRideParticipants(String pickupLocation){
+    public LinkedList<IRider> getSharedRideParticipants(String pickupLocation){ // O(n^2)
         LinkedList<IRide> sameRide = rides.findByPickupLocation(pickupLocation);//create a list with rides already stored with the pickuplocation
         LinkedList<IRider> tmp = new LinkedList<>();
         if (sameRide.empty())
@@ -133,7 +133,7 @@ public class RideSharingSystem implements IRideSharingSystem {
 
     // Loads drivers from a CSV file.
 	// Returns true if loading succeeds; false otherwise.
-	public boolean loadDriversFromCSV(String driversFilePath){
+	public boolean loadDriversFromCSV(String driversFilePath){ // O (n)
         Scanner input = null;//so i can use it outside of try block
         try {
             File file = new File(driversFilePath);//open the drivers file
@@ -176,7 +176,7 @@ public class RideSharingSystem implements IRideSharingSystem {
 
     // Loads riders from a CSV file.
 	// Returns true if loading succeeds; false otherwise.
-	public boolean loadRidersFromCSV(String ridersFilePath){
+	public boolean loadRidersFromCSV(String ridersFilePath){ // O (n)
         if(ridersFilePath == null)
             return false;
 
@@ -226,7 +226,7 @@ public class RideSharingSystem implements IRideSharingSystem {
      * - All shared rides assigned to the driver are deleted.
      * It returns true if the driver was found and removed; false otherwise
      */
-    public boolean removeDriver(int driverId){
+    public boolean removeDriver(int driverId){ // O (n)
         if (drivers.findById(driverId) == null){//check if theres driver
             return false;
         }
@@ -251,7 +251,7 @@ public class RideSharingSystem implements IRideSharingSystem {
 
     
 
-    public boolean removeRider(int riderId) {
+    public boolean removeRider(int riderId) { // O (n)
 
          // Check rider exists
         if (riders.findById(riderId) == null)
@@ -308,9 +308,7 @@ public class RideSharingSystem implements IRideSharingSystem {
 
     
 @Override
-public boolean schedulePrivateRide(String pickupLocation,
-        IDateTime pickupTime, IDateTime dropoffTime,
-        String dropoffLocation, int riderId, int driverId) {
+public boolean schedulePrivateRide(String pickupLocation, IDateTime pickupTime, IDateTime dropoffTime, String dropoffLocation, int riderId, int driverId) { // O(n)
 
     // Check if rider exists
     IRider rider = riders.findById(riderId);
@@ -386,15 +384,20 @@ public boolean schedulePrivateRide(String pickupLocation,
     // Assign the driver
     newRide.setDriver(driver);
 
-    // Add the ride
-    return rides.addRide(newRide);
+    // Add the ride with putting Ridehistory
+    if (!rides.addRide(newRide)) {
+        return false;
+    }
+
+    rider.getRideHistory().insert(newRide);
+    driver.getRideHistory().insert(newRide);
+
+    return true;
 }
 
 
 @Override
-public boolean scheduleSharedRide(String pickupLocation,
-        IDateTime pickupTime, IDateTime dropoffTime,
-        String dropoffLocation, int[] riderIds, int driverId) {
+public boolean scheduleSharedRide(String pickupLocation, IDateTime pickupTime, IDateTime dropoffTime, String dropoffLocation, int[] riderIds, int driverId) {//O(n^2)
 
     // Check if driver exists
     IDriver driver = drivers.findById(driverId);
@@ -505,13 +508,23 @@ public boolean scheduleSharedRide(String pickupLocation,
     // Assign the driver
     newRide.setDriver(driver);
 
-    // Add the ride
-    return rides.addRide(newRide);
+    // Add the ride and ridehistory
+        if (!rides.addRide(newRide)) {
+            return false;
+        }
+
+        for (int i = 0; i < rideRiders.length; i++) {
+            rideRiders[i].getRideHistory().insert(newRide);
+        }
+
+        driver.getRideHistory().insert(newRide);
+
+        return true;
 }
 
 
 @Override
-public boolean loadRidesFromCSV(String ridesFilePath) {
+public boolean loadRidesFromCSV(String ridesFilePath) { // O(n^2)
 
     if (ridesFilePath == null)
         return false;
